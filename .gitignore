@@ -1,0 +1,21 @@
+# Datasets are fetched by data/download_datasets.py, not redistributed
+/data/*.csv
+/data.zip
+
+# Regenerated artefacts
+/splits/
+/plm_cache/
+/paper/
+/results/*
+!/results/dedup_audit.txt
+!/results/manifest_build_log.txt
+!/results/revision_R2/
+/results/revision_R2/*
+!/results/revision_R2/provenance.txt
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store

@@ -1,0 +1,79 @@
+=== DATASET SIZES ===
+  dan              rows= 6142  unique_keys= 6108  within-dataset dups=  34  labels={0: 5489, 1: 653}
+  jackhhao         rows= 1033  unique_keys= 1031  within-dataset dups=   2  labels={1: 517, 0: 516}
+  jailbreakbench   rows=  200  unique_keys=  200  within-dataset dups=   0  labels={1: 100, 0: 100}
+  advbench         rows= 1040  unique_keys= 1040  within-dataset dups=   0  labels={1: 520, 0: 520}
+  harmbench        rows=  793  unique_keys=  793  within-dataset dups=   0  labels={0: 400, 1: 393}
+  hawkins          rows= 1169  unique_keys= 1164  within-dataset dups=   5  labels={1: 653, 0: 516}
+
+=== PAIRWISE OVERLAP (row-level, normalized text) ===
+Columns: total_overlap | same_label | label_conflict | overlap_as_%_of_smaller
+  A -> B                                 overlap  same_lbl  conflict   % smaller
+  ------------------------------------------------------------------------------
+  dan <-> jackhhao                           515       513         2       50.0%
+  dan <-> jailbreakbench                       0         0         0        0.0%
+  dan <-> advbench                             0         0         0        0.0%
+  dan <-> harmbench                            0         0         0        0.0%
+  dan <-> hawkins                            648       646         2       55.7%
+  jackhhao <-> jailbreakbench                  0         0         0        0.0%
+  jackhhao <-> advbench                        0         0         0        0.0%
+  jackhhao <-> harmbench                       0         0         0        0.0%
+  jackhhao <-> hawkins                      1031      1031         0      100.0%
+  jailbreakbench <-> advbench                 15        15         0        7.5%
+  jailbreakbench <-> harmbench                10        10         0        5.0%
+  jailbreakbench <-> hawkins                   0         0         0        0.0%
+  advbench <-> harmbench                       4         4         0        0.5%
+  advbench <-> hawkins                         0         0         0        0.0%
+  harmbench <-> hawkins                        0         0         0        0.0%
+
+=== OVERLAP BY CLASS (where it matters) ===
+For each pair, how many overlaps are in jailbreak (label=1) vs benign (label=0):
+  dan              <-> jackhhao          overlap=  515  (jailbreak_in_A= 513, benign_in_A=   2)
+  dan              <-> hawkins           overlap=  648  (jailbreak_in_A= 646, benign_in_A=   2)
+  jackhhao         <-> hawkins           overlap= 1031  (jailbreak_in_A= 515, benign_in_A= 516)
+  jailbreakbench   <-> advbench          overlap=   15  (jailbreak_in_A=  11, benign_in_A=   4)
+  jailbreakbench   <-> harmbench         overlap=   10  (jailbreak_in_A=   9, benign_in_A=   1)
+  advbench         <-> harmbench         overlap=    4  (jailbreak_in_A=   0, benign_in_A=   4)
+
+=== CROSS-DATASET LEAKAGE IMPACT ===
+If training on A and testing on ALL of B, how many test rows are contaminated?
+  train A          test B             B size    leaked       %
+  dan              jackhhao             1033       517   50.0%  <-- HIGH
+  dan              jailbreakbench        200         0    0.0%
+  dan              advbench             1040         0    0.0%
+  dan              harmbench             793         0    0.0%
+  dan              hawkins              1169       653   55.9%  <-- HIGH
+  jackhhao         dan                  6142       523    8.5%
+  jackhhao         jailbreakbench        200         0    0.0%
+  jackhhao         advbench             1040         0    0.0%
+  jackhhao         harmbench             793         0    0.0%
+  jackhhao         hawkins              1169      1036   88.6%  <-- HIGH
+  jailbreakbench   dan                  6142         0    0.0%
+  jailbreakbench   jackhhao             1033         0    0.0%
+  jailbreakbench   advbench             1040        15    1.4%
+  jailbreakbench   harmbench             793        10    1.3%
+  jailbreakbench   hawkins              1169         0    0.0%
+  advbench         dan                  6142         0    0.0%
+  advbench         jackhhao             1033         0    0.0%
+  advbench         jailbreakbench        200        15    7.5%
+  advbench         harmbench             793         4    0.5%
+  advbench         hawkins              1169         0    0.0%
+  harmbench        dan                  6142         0    0.0%
+  harmbench        jackhhao             1033         0    0.0%
+  harmbench        jailbreakbench        200        10    5.0%
+  harmbench        advbench             1040         4    0.4%
+  harmbench        hawkins              1169         0    0.0%
+  hawkins          dan                  6142       656   10.7%  <-- HIGH
+  hawkins          jackhhao             1033      1033  100.0%  <-- HIGH
+  hawkins          jailbreakbench        200         0    0.0%
+  hawkins          advbench             1040         0    0.0%
+  hawkins          harmbench             793         0    0.0%
+
+=== MIXED LEAVE-ONE-OUT LEAKAGE ===
+Training on all-but-target, how many target rows leak through other datasets?
+  holdout=dan              size= 6142  leaked=  656  ( 10.7%)  <-- HIGH
+  holdout=jackhhao         size= 1033  leaked= 1033  (100.0%)  <-- HIGH
+  holdout=jailbreakbench   size=  200  leaked=   25  ( 12.5%)  <-- HIGH
+  holdout=advbench         size= 1040  leaked=   19  (  1.8%)
+  holdout=harmbench        size=  793  leaked=   14  (  1.8%)
+  holdout=hawkins          size= 1169  leaked= 1169  (100.0%)  <-- HIGH

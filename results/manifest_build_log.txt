@@ -1,0 +1,47 @@
+Writing manifests to <project>/splits
+
+=== IN-DISTRIBUTION (15 splits) ===
+  [in_distribution] dan                              seed=42 sizes={'train': 4273, 'val': 611, 'test': 1222}  
+  [in_distribution] dan                              seed=123 sizes={'train': 4273, 'val': 611, 'test': 1222}  
+  [in_distribution] dan                              seed=456 sizes={'train': 4273, 'val': 611, 'test': 1222}  
+  [in_distribution] jackhhao                         seed=42 sizes={'train': 721, 'val': 103, 'test': 207}  
+  [in_distribution] jackhhao                         seed=123 sizes={'train': 721, 'val': 103, 'test': 207}  
+  [in_distribution] jackhhao                         seed=456 sizes={'train': 721, 'val': 103, 'test': 207}  
+  [in_distribution] jailbreakbench                   seed=42 sizes={'train': 140, 'val': 20, 'test': 40}  
+  [in_distribution] jailbreakbench                   seed=123 sizes={'train': 140, 'val': 20, 'test': 40}  
+  [in_distribution] jailbreakbench                   seed=456 sizes={'train': 140, 'val': 20, 'test': 40}  
+  [in_distribution] advbench                         seed=42 sizes={'train': 728, 'val': 104, 'test': 208}  
+  [in_distribution] advbench                         seed=123 sizes={'train': 728, 'val': 104, 'test': 208}  
+  [in_distribution] advbench                         seed=456 sizes={'train': 728, 'val': 104, 'test': 208}  
+  [in_distribution] harmbench                        seed=42 sizes={'train': 554, 'val': 80, 'test': 159}  
+  [in_distribution] harmbench                        seed=123 sizes={'train': 554, 'val': 80, 'test': 159}  
+  [in_distribution] harmbench                        seed=456 sizes={'train': 554, 'val': 80, 'test': 159}  
+
+=== CROSS-DATASET (first 6) (6 splits) ===
+  [cross_dataset  ] dan→jackhhao                     seed=42 sizes={'train': 5033, 'val': 560, 'test': 1031}  src_leak=513
+  [cross_dataset  ] dan→jackhhao                     seed=123 sizes={'train': 5033, 'val': 560, 'test': 1031}  src_leak=513
+  [cross_dataset  ] dan→jackhhao                     seed=456 sizes={'train': 5033, 'val': 560, 'test': 1031}  src_leak=513
+  [cross_dataset  ] dan→jailbreakbench               seed=42 sizes={'train': 5495, 'val': 611, 'test': 200}  
+  [cross_dataset  ] dan→jailbreakbench               seed=123 sizes={'train': 5495, 'val': 611, 'test': 200}  
+  [cross_dataset  ] dan→jailbreakbench               seed=456 sizes={'train': 5495, 'val': 611, 'test': 200}  
+  ... 54 more cross-dataset splits
+
+=== MIXED LOO (15 splits) ===
+  [mixed          ] holdout=dan                      seed=42 sizes={'train': 2269, 'val': 253, 'test': 6106}  pool_leak=513 cross_src_dup=29
+  [mixed          ] holdout=dan                      seed=123 sizes={'train': 2269, 'val': 253, 'test': 6106}  pool_leak=513 cross_src_dup=29
+  [mixed          ] holdout=dan                      seed=456 sizes={'train': 2269, 'val': 253, 'test': 6106}  pool_leak=513 cross_src_dup=29
+  [mixed          ] holdout=jackhhao                 seed=42 sizes={'train': 6837, 'val': 760, 'test': 1031}  pool_leak=513 cross_src_dup=29
+  [mixed          ] holdout=jackhhao                 seed=123 sizes={'train': 6837, 'val': 760, 'test': 1031}  pool_leak=513 cross_src_dup=29
+  [mixed          ] holdout=jackhhao                 seed=456 sizes={'train': 6837, 'val': 760, 'test': 1031}  pool_leak=513 cross_src_dup=29
+  [mixed          ] holdout=jailbreakbench           seed=42 sizes={'train': 7585, 'val': 843, 'test': 200}  pool_leak=25 cross_src_dup=517
+  [mixed          ] holdout=jailbreakbench           seed=123 sizes={'train': 7585, 'val': 843, 'test': 200}  pool_leak=25 cross_src_dup=517
+  [mixed          ] holdout=jailbreakbench           seed=456 sizes={'train': 7585, 'val': 843, 'test': 200}  pool_leak=25 cross_src_dup=517
+  [mixed          ] holdout=advbench                 seed=42 sizes={'train': 6829, 'val': 759, 'test': 1040}  pool_leak=19 cross_src_dup=523
+  [mixed          ] holdout=advbench                 seed=123 sizes={'train': 6829, 'val': 759, 'test': 1040}  pool_leak=19 cross_src_dup=523
+  [mixed          ] holdout=advbench                 seed=456 sizes={'train': 6829, 'val': 759, 'test': 1040}  pool_leak=19 cross_src_dup=523
+  [mixed          ] holdout=harmbench                seed=42 sizes={'train': 7051, 'val': 784, 'test': 793}  pool_leak=14 cross_src_dup=528
+  [mixed          ] holdout=harmbench                seed=123 sizes={'train': 7051, 'val': 784, 'test': 793}  pool_leak=14 cross_src_dup=528
+  [mixed          ] holdout=harmbench                seed=456 sizes={'train': 7051, 'val': 784, 'test': 793}  pool_leak=14 cross_src_dup=528
+
+Total: 90 splits written.
+Total rows removed due to test-side leakage (all manifests): 6504
